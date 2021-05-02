@@ -1,0 +1,10 @@
+[local]
+localhost ansible_user=hme ansible_connection=local
+[alpine]
+alpine01 ansible_host=172.17.0.4  ansible_user=root  ansible_password=Passw0rd ansible_ssh_extra_args='-o StrictHostKeyChecking=no' ansible_python_interpreter="/usr/bin/env python"
+[centos]
+centos01 ansible_host=172.17.0.3 ansible_user=centos  ansible_password=Passw0rd ansible_ssh_extra_args='-o StrictHostKeyChecking=no'
+[ubuntu]
+ubuntu01 ansible_host=192.168.1.75  ansible_user=hme  ansible_password=tcwowa12 ansible_ssh_extra_args='-o StrictHostKeyChecking=no'
+[centosremote]
+remote01 ansible_host=51.68.28.210  ansible_ssh_user=centos ansible_ssh_private_key=/home/centos/.ssh/id_rsa
