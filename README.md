@@ -19,6 +19,7 @@ ansible-playbook -i inventory install_docker_ubuntu.yml --limit local # run a pl
 su - $USER
 cd ansible
 source venv/bin/activate # activate the python virtualenv
+docker ps 
 ```
 
 ## Installation de portainer pour verifier les resultats de nos tps 
@@ -56,7 +57,7 @@ Dans votre home directory,  faire
 ```ssh-keygen -t rsa -b 4096 ```  
 Valider les parametres par defaut en tapant enter a chaque etape 
 sans passphrase   
-```ssh-copy-id centos@<remote_id_address>```
+```ssh-copy-id ubuntu@<remote_id_address>```
 
 ## Commandes Ad-Hoc
 Faire la commande Ansible Ad-Hoc ci-dessous pour verifier si votre fichier inventory est correct.
