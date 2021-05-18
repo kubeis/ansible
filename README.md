@@ -1,8 +1,8 @@
-# Installation du bac a sable ansible
+# Installation du bac a sable ---  Ansible  ----
 
 Connectez-vous a la VM fournie lors du debut du cours
 
-## Pre-requis pour ubuntu 20.04
+## Pre-requis pour ubuntu 20.04 pour installer un virtualenv, ansible et Docker
 ```shell
 sudo apt update   # update all packages
 sudo apt -y install sshpass # allow using ssh with a password
@@ -16,7 +16,7 @@ pip3 install ansible # install ansible
 pip3 install requests # extra packages 
 ansible --version  # check version number , should be the latest 2.10.9+
 ansible-playbook -i inventory install_docker_ubuntu.yml --limit local # run a playbook
-su - $USER
+# Fermer votre IDE et le demarrer a nouveau pour que les changements soient appliques
 cd ansible
 source venv/bin/activate # activate the python virtualenv
 docker ps 
@@ -27,7 +27,26 @@ docker ps
 docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer -H unix:///var/run/docker.sock 
 ```
 
-## Mise en place des containers   
+## Installation d'une base postgresql
+
+
+
+## Build et run des differents containers   
+```shell
+cd ubuntu-ssh 
+docker build -t ubuntu-ssh . 
+docker run -d --name target1 ubuntu-ssh
+cd ..
+cd centos-ssh
+docker build -t centos-ssh .
+docker run -d --name target2 centos-ssh 
+cd ..
+cd alpine-ssh 
+docker build -t alpine-ssh . 
+docker run -d --name target3 alpine-ssh
+```
+
+
 Demarrez ces 3 containers pour simuler differentes machines.    
 ```shell script
 docker run -d --name target1 systemdevformations/ubuntu_ssh:v2  
@@ -119,8 +138,7 @@ vers l'autre host.
 ### Inventaire dynamique
 Mise en place d'une application-tier dans laquelle les devices a maintenir avec 
 ansible sont mis a jour. 
-#### Exemple avec l'applicationde monitoring Zabbix
-
+#### Exemple avec l'application de monitoring Zabbix
 ```shell
 docker run -d --name db -e POSTGRES_PASSWORD=password  -v /opt/postgres:/var/lib/postgresql/data \
   -p 5432:5432  systemdevformations/docker-postgres12
@@ -129,6 +147,15 @@ sudo dpkg -i zabbix-release_5.3-1+ubuntu20.04_all.deb
 sudo apt update
 sudo apt install -y zabbix-server-pgsql zabbix-frontend-php php7.4-pgsql zabbix-apache-conf zabbix-sql-scripts zabbix-agent
 ```
+
+
+## Query 
+```sql
+select i.ip,h.name from hosts h, interface i, hosts_groups g
+where h.hostid = i.hostid and h.hostid = g.hostid and h.status=0 and g.groupid = 5;
+```
+
+
 
 
 Faire un fork de ce repo  
