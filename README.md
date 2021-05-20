@@ -15,6 +15,7 @@ pip3 install wheel # set for permissions purpose
 pip3 install ansible # install ansible
 pip3 install requests # extra packages 
 ansible --version  # check version number , should be the latest 2.10.9+
+cp inventory_template inventory
 ansible-playbook -i inventory install_docker_ubuntu.yml --limit local # run a playbook
 # Fermer votre IDE et le demarrer a nouveau pour que les changements soient appliques
 cd ansible
@@ -24,7 +25,7 @@ docker ps
 
 ## Installation de portainer pour verifier les resultats de nos tps 
 ```shell
-docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer -H unix:///var/run/docker.sock 
+docker run -d --name portainer -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer -H unix:///var/run/docker.sock 
 ```
 
 ## Installation d'une base postgresql
